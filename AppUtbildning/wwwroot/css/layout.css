@@ -1,0 +1,424 @@
+﻿/* Beskriver den generella layouten som varje sida ska ha, exempelvis textstorlek, färg, header, footer etc.
+   Färger och mått ligger som variabler här uppe så att alla sidor ser likadana ut. */
+:root {
+    --ink: #141414;          /* rubriker, knappar */
+    --text: #3d3d3d;         /* brödtext */
+    --muted: #6e6e6e;        /* hjälptext */
+    --line: #e7e4df;         /* linjer och ramar */
+    --bg: #ffffff;
+    --bg-soft: #f7f5f2;      /* ljus varm bakgrund för sektioner */
+    --danger: #b42318;
+
+    --font-heading: "Cormorant Garamond", Georgia, serif;
+    --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+    --radius: 14px;
+    --shadow: 0 6px 24px rgba(0, 0, 0, .06);
+    --container: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+/* Så att rubriker inte hamnar under den fasta menyn när man klickar på en länk som #intresse */
+[id] { scroll-margin-top: 84px; }
+html, body {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.15;
+    margin: 0 0 .5em;
+}
+h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); }
+h2 { font-size: clamp(1.8rem, 3.5vw, 2.5rem); }
+h3 { font-size: 1.45rem; }
+p  { margin: 0 0 1em; }
+img { max-width: 100%; display: block; }
+a  { color: var(--ink); }
+
+/* Dold text för skärmläsare */
+.vh {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    clip: rect(1px,1px,1px,1px);
+    white-space: nowrap;
+}
+
+/* ---------- Gemensamma byggstenar ---------- */
+
+.container {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+.section { padding: 88px 0; }
+.section-soft { background: var(--bg-soft); }
+
+.eyebrow {
+    display: inline-block;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+}
+.lead {
+    font-size: 1.1rem;
+    color: var(--text);
+}
+.muted { color: var(--muted); }
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 999px;
+    border: 1px solid var(--ink);
+    font-family: var(--font-body);
+    font-size: .92rem;
+    font-weight: 500;
+    letter-spacing: .02em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background .2s, color .2s, border-color .2s;
+}
+.btn-primary { background: var(--ink); color: #fff; }
+.btn-primary:hover { background: #333; border-color: #333; }
+.btn-outline { background: transparent; color: var(--ink); }
+.btn-outline:hover { background: var(--ink); color: #fff; }
+.btn-light { background: #fff; color: var(--ink); border-color: #fff; }
+.btn-light:hover { background: transparent; color: #fff; }
+.btn-ghost-light { background: transparent; color: #fff; border-color: rgba(255,255,255,.7); }
+.btn-ghost-light:hover { background: #fff; color: var(--ink); }
+
+.card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+/* Formulär */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+.form-grid .full { grid-column: 1 / -1; }
+.field {
+    display: grid;
+    gap: 6px;
+}
+.field label {
+    font-size: .85rem;
+    font-weight: 500;
+    color: var(--ink);
+}
+.field input,
+.field select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d9d6d0;
+    border-radius: 10px;
+    font: inherit;
+    font-size: .95rem;
+    background: #fff;
+    color: var(--ink);
+}
+.field input:focus,
+.field select:focus {
+    outline: none;
+    border-color: var(--ink);
+    box-shadow: 0 0 0 3px rgba(20, 20, 20, .08);
+}
+.field .input-validation-error { border-color: var(--danger); }
+.text-danger {
+    color: var(--danger);
+    font-size: .85rem;
+}
+.text-danger ul { margin: 0; padding-left: 18px; }
+
+/* Hero med bakgrundsbild. Bilden sätts per sida med style="--hero-img: url(...)" */
+.hero {
+    position: relative;
+    min-height: 78vh;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    background:
+        linear-gradient(90deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.45) 55%, rgba(0,0,0,.25) 100%),
+        var(--hero-img) no-repeat center center / cover;
+}
+.hero-content {
+    max-width: 640px;
+    padding: 80px 0;
+}
+.hero h1 {
+    color: #fff;
+    font-style: italic;
+    font-weight: 400;
+}
+.hero p {
+    font-size: 1.15rem;
+    color: rgba(255,255,255,.88);
+    max-width: 560px;
+}
+.hero .eyebrow { color: rgba(255,255,255,.75); }
+.hero-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+}
+
+/* Liten informationsruta, t.ex. för behörighet */
+.notice {
+    border-left: 3px solid var(--ink);
+    background: var(--bg-soft);
+    padding: 20px 24px;
+    border-radius: 0 var(--radius) var(--radius) 0;
+}
+.notice p:last-child { margin-bottom: 0; }
+
+/* Enkel centrerad sida (bekräftelse, fel) */
+.simple-page {
+    min-height: 60vh;
+    display: grid;
+    place-items: center;
+    padding: 64px 24px;
+    background: var(--bg-soft);
+}
+.simple-card {
+    max-width: 520px;
+    width: 100%;
+    padding: 48px 40px;
+    text-align: center;
+}
+.simple-card .icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 20px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-size: 1.5rem;
+}
+
+/* ---------- Header / meny ---------- */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #0d0d0d;
+}
+.main-nav {
+    max-width: var(--container);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+}
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-style: italic;
+    color: #fff;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin: 0;
+    padding: 0;
+}
+.nav-menu li { position: relative; }
+
+.nav-menu > li > a,
+.dropdown-title {
+    font-family: var(--font-body);
+    font-size: .78rem;
+    font-weight: 500;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgba(255,255,255,.7);
+    background: none;
+    border: none;
+    padding: 6px 0;
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+    transition: color .2s, border-color .2s;
+}
+.nav-menu > li > a:hover,
+.dropdown-title:hover { color: #fff; }
+.nav-menu > li > a.active,
+.dropdown-title.active {
+    color: #fff;
+    border-bottom-color: #fff;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: -16px;
+    background: #fff;
+    list-style: none;
+    padding: 8px;
+    margin: 0;
+    min-width: 200px;
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(0,0,0,.18);
+}
+.dropdown-menu li a {
+    display: block;
+    padding: 10px 14px;
+    border-radius: 8px;
+    color: var(--ink);
+    font-size: .9rem;
+    text-decoration: none;
+}
+.dropdown-menu li a:hover,
+.dropdown-menu li a.active { background: var(--bg-soft); }
+.has-dropdown:hover .dropdown-menu,
+.has-dropdown:focus-within .dropdown-menu { display: block; }
+
+/* Hamburgarknapp, döljs på dator */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+}
+.nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    margin: 5px 0;
+    background: #fff;
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+    background: #0d0d0d;
+    color: rgba(255,255,255,.65);
+    padding: 64px 24px 24px;
+    font-size: .9rem;
+}
+.footer-grid {
+    max-width: var(--container);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px;
+}
+.footer-logo {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.6rem;
+    color: #fff;
+    margin-bottom: 12px;
+}
+.footer-brand p:not(.footer-logo) { max-width: 340px; }
+.site-footer h4 {
+    font-size: .72rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0 0 16px;
+    font-weight: 600;
+}
+.footer-nav {
+    display: grid;
+    gap: 8px;
+    align-content: start;
+}
+.footer-info p { margin: 0 0 8px; }
+.site-footer a {
+    color: rgba(255,255,255,.65);
+    text-decoration: none;
+}
+.site-footer a:hover { color: #fff; }
+.footer-bottom {
+    max-width: var(--container);
+    margin: 48px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,.12);
+    font-size: .8rem;
+    color: rgba(255,255,255,.45);
+}
+
+/* ---------- Mobil ---------- */
+
+@media (max-width: 860px) {
+    .section { padding: 64px 0; }
+    .logo { font-size: 1.4rem; }
+
+    .nav-toggle { display: block; }
+    .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px 24px 20px;
+        background: #0d0d0d;
+        border-top: 1px solid rgba(255,255,255,.1);
+    }
+    .nav-menu.open { display: flex; }
+    .nav-menu > li > a,
+    .dropdown-title {
+        display: block;
+        width: 100%;
+        text-align: left;
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .nav-menu > li > a.active,
+    .dropdown-title.active { border-bottom-color: rgba(255,255,255,.08); }
+
+    /* Undermenyn visas alltid på mobil */
+    .dropdown-menu {
+        display: block;
+        position: static;
+        background: none;
+        box-shadow: none;
+        padding: 0 0 0 16px;
+    }
+    .dropdown-menu li a { color: rgba(255,255,255,.7); padding: 10px 0; }
+    .dropdown-menu li a:hover,
+    .dropdown-menu li a.active { background: none; color: #fff; }
+
+    .form-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+}

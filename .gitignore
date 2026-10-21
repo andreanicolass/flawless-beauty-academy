@@ -1,0 +1,23 @@
+# Byggfiler
+bin/
+obj/
+
+# IDE-inställningar (Rider, Visual Studio, VS Code)
+.idea/
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Databasen innehåller personuppgifter och skapas automatiskt när appen startar
+*.db
+*.db-shm
+*.db-wal
+
+# Övrigt
+*.zip
+.DS_Store
+Thumbs.db
+
+# Gammal kopia av solution-filen inne i projektmappen (den riktiga ligger i roten)
+/AppUtbildning/AppUtbildning.sln

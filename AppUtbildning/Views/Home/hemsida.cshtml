@@ -1,0 +1,127 @@
+﻿<!-- All kod är från presentationer och https://www.w3schools.com/html/default.asp-->
+@{
+    ViewData["Title"] = "Flawless Beauty Academy – Utbildningar inom estetik";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/hemsida.css" asp-append-version="true" />
+}
+
+<main class="hemsida-page">
+    <!-- Hero -->
+    <section class="hero" style="--hero-img: url('/images/hemsida.png')">
+        <div class="container">
+            <div class="hero-content">
+                <span class="eyebrow">Flawless Beauty Academy</span>
+                <h1>Från passion till profession</h1>
+                <p>
+                    Våra utbildningar inom fillers, botox och microneedling kombinerar din kompetens
+                    med den växande efterfrågan inom estetik. Hos oss får du en trygg, kvalitativ och
+                    karriärsdrivande utbildning som öppnar dörrar till nya möjligheter.
+                </p>
+                <div class="hero-actions">
+                    <a href="#utbildningar" class="btn btn-light">Se utbildningar</a>
+                    <a asp-controller="Home" asp-action="Omoss" class="btn btn-ghost-light">Om oss</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Utbildningar -->
+    <section id="utbildningar" class="section">
+        <div class="container">
+            <div class="section-head">
+                <span class="eyebrow">Utbildningar</span>
+                <h2>Ta steget in i framtidens skönhetsbransch</h2>
+                <p class="lead muted">
+                    Kurser som kombinerar expertkunskap med praktisk erfarenhet – för dig som vill arbeta
+                    professionellt med estetiska behandlingar.
+                </p>
+            </div>
+
+            <div class="course-cards">
+                <a asp-controller="Home" asp-action="Fillers" class="course-card">
+                    <img src="~/images/fillers.PNG" alt="Fillerbehandling" asp-append-version="true" />
+                    <div class="course-card-body">
+                        <span class="eyebrow">Grundutbildning</span>
+                        <h3>Fillers</h3>
+                        <p>Teori, anatomi och upp till 10 elevbehandlingar under handledning.</p>
+                        <span class="course-meta">29 000 kr · För leg. vårdpersonal</span>
+                    </div>
+                </a>
+                <a asp-controller="Home" asp-action="Botox" class="course-card">
+                    <img src="~/images/botox.jpg" alt="Botoxbehandling" asp-append-version="true" />
+                    <div class="course-card-body">
+                        <span class="eyebrow">Grundutbildning</span>
+                        <h3>Botox</h3>
+                        <p>Bygg en trygg bas inom botulinumtoxin med teori och praktik.</p>
+                        <span class="course-meta">29 000 kr · För leg. vårdpersonal</span>
+                    </div>
+                </a>
+                <a asp-controller="Home" asp-action="Microneedling" class="course-card">
+                    <img src="~/images/microneedling.jpg" alt="Microneedlingbehandling" asp-append-version="true" />
+                    <div class="course-card-body">
+                        <span class="eyebrow">Grundutbildning</span>
+                        <h3>Microneedling</h3>
+                        <p>Teori och praktik under handledning – ingen legitimation krävs.</p>
+                        <span class="course-meta">10 000 kr · Öppen för alla</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Om utbildningarna -->
+    <section id="education" class="section section-soft">
+        <div class="container split">
+            <div>
+                <span class="eyebrow">Om utbildningarna</span>
+                <h2>Teori och praktik i en helhet</h2>
+            </div>
+            <div>
+                <p>
+                    Våra utbildningar är skapade för att ge dig en helhetsförståelse för estetiska behandlingar genom en
+                    inspirerande mix av teori och praktik. Du börjar med att bygga en stark teoretisk grund och går sedan
+                    vidare till praktiska moment där du tränar under professionell handledning.
+                </p>
+                <p>
+                    För våra kurser inom fillers och botox innebär den praktiska delen att du själv får utföra upp till 10
+                    behandlingar på riktiga kunder i form av elevbehandlingar – en ovärderlig erfarenhet som gör dig trygg
+                    och säker i ditt framtida arbete. För andra behandlingar, som microneedling, anpassas den
+                    praktiska träningen efter respektive kursupplägg.
+                </p>
+
+                <ul class="steps">
+                    <li><strong>01</strong><span>Teori och anatomi via eLearning</span></li>
+                    <li><strong>02</strong><span>Live-demo på modell</span></li>
+                    <li><strong>03</strong><span>Handledda elevbehandlingar</span></li>
+                    <li><strong>04</strong><span>Certifikat efter genomförd kurs</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Behörighet -->
+    <section class="section">
+        <div class="container split">
+            <div>
+                <span class="eyebrow">Behörighet</span>
+                <h2>Vem kan gå utbildningarna?</h2>
+            </div>
+            <div>
+                <div class="notice">
+                    <p>Enligt 8 § lagen om estetiska injektionsbehandlingar finns tydliga krav på vem som får utföra olika behandlingar.</p>
+                </div>
+                <p class="spaced">
+                    För att utföra estetiska injektionsbehandlingar (till exempel fillers och botox) behöver du vara legitimerad läkare,
+                    tandläkare eller sjuksköterska. Det är viktigt att du säkerställer att du uppfyller dessa behörighetskrav innan du
+                    bokar din utbildning, så att du kan tillgodogöra dig kursen fullt ut och arbeta professionellt efter avslutad utbildning.
+                </p>
+                <p>
+                    För våra övriga utbildningar, såsom microneedling, krävs ingen legitimation. Dessa kurser är öppna för alla som vill
+                    påbörja en karriär inom skönhetsbranschen och ger dig en bra grund att bygga vidare på.
+                </p>
+            </div>
+        </div>
+    </section>
+</main>

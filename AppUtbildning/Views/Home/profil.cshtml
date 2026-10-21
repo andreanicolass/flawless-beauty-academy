@@ -1,0 +1,184 @@
+﻿@using AppUtbildning.Models
+@model AdminOverview?
+@{
+    ViewData["Title"] = "Flawless Beauty Academy – Profil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var isLoggedIn = User.Identity?.IsAuthenticated == true;
+    var isAdmin = User.IsInRole(SeedData.AdminRole);
+    var email = User.Identity?.Name ?? "";
+    var fullName = User.FindFirst(SeedData.FullNameClaim)?.Value;
+    var course = User.FindFirst(SeedData.CourseClaim)?.Value;
+
+    // Initialer från namnet (Sara Lindqvist -> SL), annars från e-posten
+    var initials = !string.IsNullOrWhiteSpace(fullName)
+        ? string.Concat(fullName.Split(' ', StringSplitOptions.RemoveEmptyEntries).Take(2).Select(n => n[0])).ToUpperInvariant()
+        : email.Split('@')[0] is var namePart && namePart.Length > 0
+            ? namePart.Substring(0, Math.Min(2, namePart.Length)).ToUpperInvariant()
+            : "FB";
+    var returnUrl = Context.Request.Query["ReturnUrl"].ToString();
+}
+@section Styles {
+  <link rel="stylesheet" href="~/css/profil.css" asp-append-version="true" />
+}
+
+  <!-- Innehåll -->
+  <main class="profil-page">
+  @if (!isLoggedIn)
+  {
+    <!-- Login-vy -->
+    <section id="loginView" class="card">
+      <h1>Logga in</h1>
+      @if (TempData["LoginError"] is string loginError)
+      {
+        <p id="loginError" class="login-error">@loginError</p>
+      }
+      else if (!string.IsNullOrEmpty(returnUrl))
+      {
+        <p class="login-error">Du måste logga in för att se den sidan.</p>
+      }
+      <form id="loginForm" method="post" asp-controller="Account" asp-action="Login">
+        <input type="hidden" name="returnUrl" value="@returnUrl" />
+
+        <div class="field">
+          <label for="email">E-post</label>
+          <input id="email" name="email" type="email" placeholder="namn@exempel.se" autocomplete="username" required>
+        </div>
+        <div class="field">
+          <label for="password">Lösenord</label>
+          <input id="password" name="password" type="password" placeholder="Minst 6 tecken" autocomplete="current-password" minlength="6" required>
+        </div>
+        <div class="row space-between">
+          <label class="checkbox">
+            <input type="checkbox" id="remember" name="rememberMe" value="true"> <span>Kom ihåg mig</span>
+          </label>
+          <button type="submit" class="btn btn-primary">Logga in</button>
+        </div>
+      </form>
+    </section>
+  }
+  else if (isAdmin && Model != null)
+  {
+    <!-- Admin-vy: översikt över anmälningar -->
+    <section id="adminView" class="card">
+      <div class="row space-between">
+        <h1>Adminpanel</h1>
+        <span class="role-badge">Admin</span>
+      </div>
+
+      <div class="profile-row">
+        <div class="avatar" aria-hidden="true">@initials</div>
+        <div>
+          <p class="welcome">Välkommen tillbaka!</p>
+          <p class="muted small">@email</p>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-number">@Model.TotalRegistrations</span>
+          <span class="stat-label">Anmälningar</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">@Model.StudentAccounts</span>
+          <span class="stat-label">Studentkonton</span>
+        </div>
+      </div>
+
+      <h2 class="section-title">Anmälningar per utbildning</h2>
+      <ul class="course-list">
+        @foreach (var c in Model.RegistrationsPerCourse)
+        {
+          <li><span>@c.Key</span><strong>@c.Value</strong></li>
+        }
+      </ul>
+
+      <h2 class="section-title">Senaste anmälningar</h2>
+      @if (Model.Latest.Count == 0)
+      {
+        <p class="empty-state">Inga anmälningar ännu.</p>
+      }
+      else
+      {
+        <ul class="latest-list">
+          @foreach (var r in Model.Latest)
+          {
+            <li>
+              <span>@r.FirstName @r.LastName</span>
+              <span class="muted small">@(r.Course ?? "–") · @r.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd")</span>
+            </li>
+          }
+        </ul>
+      }
+
+      <div class="profile-actions">
+        <a asp-controller="Register" asp-action="Index" class="btn btn-primary">Visa alla anmälningar</a>
+        <form method="post" asp-controller="Account" asp-action="Logout">
+          <button class="btn btn-outline" type="submit">Logga ut</button>
+        </form>
+      </div>
+    </section>
+  }
+  else
+  {
+    <!-- Student-vy -->
+    <section id="profileView" class="card">
+      <h1>Din profil</h1>
+
+      <div class="profile-row">
+        <div class="avatar" id="avatar" aria-hidden="true">@initials</div>
+        <div>
+          <p id="welcome" class="welcome">Välkommen@(fullName != null ? $", {fullName.Split(' ')[0]}" : "")!</p>
+          <p class="muted small" id="userEmail">@email</p>
+          @if (course != null)
+          {
+            <p class="muted small">Anmäld till: <strong>@course</strong></p>
+          }
+        </div>
+      </div>
+
+      <!-- Flikar: bara för visning i prototypen -->
+      <div class="tabs" role="tablist">
+        <button class="tab-btn active" type="button" role="tab" aria-selected="true" data-tab="studier">Studier</button>
+        <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="diplom">Diplom</button>
+        <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="kop">Köphistorik</button>
+      </div>
+
+      <div class="tab-panel" id="tab-studier" role="tabpanel">
+        <p class="empty-state">Inga studier tillgängliga för tillfället.</p>
+        <p class="muted small">När din utbildning startar hittar du kursmaterial och eLearning här.</p>
+      </div>
+      <div class="tab-panel" id="tab-diplom" role="tabpanel" hidden>
+        <p class="empty-state">Inga diplom ännu.</p>
+        <p class="muted small">Ditt diplom visas här när du har slutfört en utbildning.</p>
+      </div>
+      <div class="tab-panel" id="tab-kop" role="tabpanel" hidden>
+        <p class="empty-state">Ingen köphistorik ännu.</p>
+        <p class="muted small">Här samlas dina kvitton och betalningar.</p>
+      </div>
+
+      <div class="profile-actions">
+        <form method="post" asp-controller="Account" asp-action="Logout">
+          <button class="btn btn-outline" id="logoutBtn" type="submit">Logga ut</button>
+        </form>
+      </div>
+    </section>
+  }
+  </main>
+
+@section Scripts {
+  <script>
+    // Byter flik i studentvyn
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => {
+          b.classList.toggle('active', b === btn);
+          b.setAttribute('aria-selected', b === btn);
+        });
+        document.querySelectorAll('.tab-panel').forEach(p => {
+          p.hidden = p.id !== 'tab-' + btn.dataset.tab;
+        });
+      });
+    });
+  </script>
+}

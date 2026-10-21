@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Tack för din anmälan!";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Lärde mig från allt jag skapat hittils
+    var course = TempData["Course"] as string;
+}
+
+<main class="simple-page">
+    <div class="card simple-card">
+        <div class="icon" aria-hidden="true">✓</div>
+        <h1>Tack för din anmälan!</h1>
+        <p class="muted">
+            @if (course != null)
+            {
+                <text>Vi har tagit emot din intresseanmälan till <strong>@course</strong>.</text>
+            }
+            else
+            {
+                <text>Vi har tagit emot din intresseanmälan.</text>
+            }
+            Vi återkommer till dig via e-post eller telefon så snart som möjligt.
+        </p>
+
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Till startsidan</a>
+    </div>
+</main>

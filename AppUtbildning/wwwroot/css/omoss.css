@@ -1,0 +1,76 @@
+﻿/* Stil för Om oss-sidan. Gemensamma delar finns i layout.css. */
+
+.omoss-page .page-intro { padding: 72px 0 56px; }
+.omoss-page .page-intro h1 { margin-bottom: 8px; }
+
+/* Text och bild bredvid varandra */
+.omoss-page .about-section {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 64px;
+    align-items: center;
+}
+/* Bilden till vänster i andra sektionen (det här fick jag hjälp med av chat) */
+.omoss-page .image-left { grid-template-columns: 1fr 1.1fr; }
+
+.omoss-page .about-text h3 {
+    margin-top: 28px;
+}
+.omoss-page .about-image img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radius);
+    background: #efefef;
+}
+
+/* Loggan ska synas hel, inte beskäras */
+.omoss-page .logo-image img {
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    background: #fff;
+    border: 1px solid var(--line);
+}
+
+.omoss-page .om-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+}
+.omoss-page .om-lista li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: .95rem;
+}
+
+/* Vision */
+.omoss-page .vision {
+    max-width: 780px;
+    text-align: center;
+}
+.omoss-page .vision blockquote {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    line-height: 1.3;
+    color: var(--ink);
+    margin: 0 0 20px;
+}
+.omoss-page .about-taggar {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+}
+
+@media (max-width: 860px) {
+    .omoss-page .about-section,
+    .omoss-page .image-left { grid-template-columns: 1fr; gap: 32px; }
+    /* Bilden först på mobil i båda sektionerna */
+    .omoss-page .about-section .about-image { order: -1; }
+    .omoss-page .om-lista { grid-template-columns: 1fr; }
+}

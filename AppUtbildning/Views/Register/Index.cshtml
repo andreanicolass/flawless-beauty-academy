@@ -1,0 +1,103 @@
+﻿@model List<AppUtbildning.Models.Register>
+
+@{
+    ViewData["Title"] = "Anmälningar";
+    Layout = "_Layout";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/anmalningar.css" asp-append-version="true" />
+}
+
+<main class="admin-page">
+    <header class="admin-header">
+        <div>
+            <a asp-controller="Home" asp-action="Profil" class="back-link">← Adminpanel</a>
+            <h1>Anmälningar</h1>
+            <p class="subtitle">@Model.Count anmälningar totalt</p>
+        </div>
+        <a asp-controller="Register" asp-action="Create" class="btn btn-primary">+ Ny anmälan</a>
+    </header>
+
+    @if (Model.Count == 0) // Om det finns 0 anmälningar så dyker texten nedan upp
+    {
+        <div class="card empty">
+            <p>Inga anmälningar tillgängliga</p>
+        </div>
+    }
+    else // Fick hjälp på handledning
+    {
+        <!-- Filtrera på utbildning och sök på namn/e-post -->
+        <div class="toolbar">
+            <div class="filters" role="group" aria-label="Filtrera på utbildning">
+                <button type="button" class="filter active" data-course="">Alla</button>
+                @foreach (var c in AppUtbildning.Models.Register.Courses)
+                {
+                    <button type="button" class="filter" data-course="@c">@c</button>
+                }
+            </div>
+            <input type="search" id="search" class="search" placeholder="Sök namn eller e-post…" aria-label="Sök" />
+        </div>
+
+        <div class="card table-wrap">
+            <table class="admin-table">
+                <thead>
+                <tr>
+                    <th>Namn</th>
+                    <th>Kontakt</th>
+                    <th>Adress</th>
+                    <th>Utbildning</th>
+                    <th>Anmäld</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var p in Model)
+                {
+                    <tr data-course="@p.Course" data-search="@($"{p.FirstName} {p.LastName} {p.Email}".ToLowerInvariant())">
+                        <td>
+                            <span class="name">@p.FirstName @p.LastName</span>
+                        </td>
+                        <td>
+                            <a href="mailto:@p.Email" class="email">@p.Email</a>
+                            <span class="muted">@p.Phone</span>
+                        </td>
+                        <td class="muted">@p.Address</td>
+                        <td><span class="badge">@(p.Course ?? "–")</span></td>
+                        <td class="muted nowrap">@p.CreatedAt.ToLocalTime().ToString("d MMM yyyy", new System.Globalization.CultureInfo("sv-SE"))</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+            <p id="noMatch" class="no-match" hidden>Inga anmälningar matchar din sökning.</p>
+        </div>
+    }
+</main>
+
+@section Scripts {
+    <script>
+        // Filtrerar tabellen på vald utbildning och söktext
+        const rows = document.querySelectorAll('.admin-table tbody tr');
+        const search = document.getElementById('search');
+        const noMatch = document.getElementById('noMatch');
+        let course = '';
+
+        function applyFilter() {
+            const q = (search?.value || '').trim().toLowerCase();
+            let visible = 0;
+            rows.forEach(r => {
+                const show = (!course || r.dataset.course === course) && r.dataset.search.includes(q);
+                r.hidden = !show;
+                if (show) visible++;
+            });
+            if (noMatch) noMatch.hidden = visible > 0;
+        }
+
+        document.querySelectorAll('.filter').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter').forEach(b => b.classList.toggle('active', b === btn));
+                course = btn.dataset.course;
+                applyFilter();
+            });
+        });
+        search?.addEventListener('input', applyFilter);
+    </script>
+}

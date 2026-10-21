@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"]</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
+
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+
+@{
+    var action = (ViewContext.RouteData.Values["action"]?.ToString() ?? "")
+        .ToLowerInvariant();
+    var controller = (ViewContext.RouteData.Values["controller"]?.ToString() ?? "").ToLowerInvariant();
+
+    bool isFillers = action == "fillers";
+    bool isBotox = action == "botox";
+    bool isMicroneedling = action == "microneedling";
+    bool isIndex = controller == "home" && action == "index";
+    bool isOmoss = action == "omoss";
+    bool isProfil = action == "profil";
+    bool isUtbildningar = isFillers || isBotox || isMicroneedling;
+}
+
+<header class="site-header">
+    <nav class="main-nav">
+        <a class="logo" asp-controller="Home" asp-action="Index">
+            Flawless Beauty Academy
+        </a>
+
+        <!-- Menyknapp som bara syns på mobil -->
+        <button class="nav-toggle" type="button" aria-label="Meny" aria-expanded="false" aria-controls="navMenu">
+            <span></span><span></span><span></span>
+        </button>
+
+        <ul class="nav-menu" id="navMenu">
+            <li>
+                <a asp-controller="Home" asp-action="Index" class="@(isIndex ? "active" : "")">Hem</a>
+            </li>
+
+            <li class="has-dropdown">
+                <button type="button" class="dropdown-title @(isUtbildningar ? "active" : "")" aria-haspopup="true">
+                    Utbildningar
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a asp-controller="Home" asp-action="Fillers" class="@(isFillers ? "active" : "")">Fillers</a></li>
+                    <li><a asp-controller="Home" asp-action="Botox" class="@(isBotox ? "active" : "")">Botox</a></li>
+                    <li><a asp-controller="Home" asp-action="Microneedling" class="@(isMicroneedling ? "active" : "")">Microneedling</a></li>
+                </ul>
+            </li>
+
+            <li><a asp-controller="Home" asp-action="Omoss" class="@(isOmoss ? "active" : "")">Om oss</a></li>
+            <li><a asp-controller="Home" asp-action="Profil" class="@(isProfil ? "active" : "")">Profil</a></li>
+        </ul>
+    </nav>
+</header>
+
+@RenderBody()
+
+<footer class="site-footer">
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <p class="footer-logo">Flawless Beauty Academy</p>
+            <p>Utbildningar inom fillers, botox och microneedling – med teori, praktik och personlig handledning.</p>
+        </div>
+
+        <nav class="footer-nav" aria-label="Sidfot">
+            <h4>Sidor</h4>
+            <a asp-controller="Home" asp-action="Index">Hem</a>
+            <a asp-controller="Home" asp-action="Fillers">Fillers</a>
+            <a asp-controller="Home" asp-action="Botox">Botox</a>
+            <a asp-controller="Home" asp-action="Microneedling">Microneedling</a>
+            <a asp-controller="Home" asp-action="Omoss">Om oss</a>
+            <a asp-controller="Home" asp-action="Profil">Profil</a>
+        </nav>
+
+        <div class="footer-info">
+            <h4>Kontakt</h4>
+            <p><a href="tel:+46722537728">+46 72-253 77 28</a></p>
+            <p><a href="mailto:annanicolas@hotmail.com">annanicolas@hotmail.com</a></p>
+            <p>Stensötevägen 8, Göteborg</p>
+            <p><a href="https://www.instagram.com/flawlessbeautyclinicacademy" target="_blank" rel="noopener">Instagram</a></p>
+            <p>Boka behandling via Bokadirekt</p>
+        </div>
+    </div>
+
+    <p class="footer-bottom">&copy; @DateTime.Now.Year Flawless Beauty Academy · Alla rättigheter förbehållna</p>
+</footer>
+
+<script>
+    // Öppnar och stänger menyn på mobil
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.getElementById('navMenu');
+    navToggle?.addEventListener('click', () => {
+        const open = navMenu.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', open);
+    });
+</script>
+@RenderSection("Scripts", required: false)
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Något gick fel";
+}
+
+<main class="simple-page">
+    <div class="card simple-card">
+        <div class="icon" aria-hidden="true">!</div>
+        <h1>Något gick fel</h1>
+        <p class="muted">Ett oväntat fel uppstod. Försök igen om en stund, eller gå tillbaka till startsidan.</p>
+
+        @if (Model?.ShowRequestId == true)
+        {
+            <p class="muted"><small>Felkod: <code>@Model.RequestId</code></small></p>
+        }
+
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Till startsidan</a>
+    </div>
+</main>

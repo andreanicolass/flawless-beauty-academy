@@ -1,0 +1,68 @@
+@model AppUtbildning.Models.Register
+@*
+    Intresseanmälan som används på alla kurssidor.
+    Kurssidan sätter ViewData["Course"] (t.ex. "Fillers") och ViewData["CourseName"] (rubriken som visas).
+*@
+@{
+    var course = ViewData["Course"] as string ?? "";
+    var courseName = ViewData["CourseName"] as string ?? course;
+}
+
+<section class="section section-soft intresse" id="intresse">
+    <div class="container intresse-grid">
+        <div class="card form-card">
+            <span class="eyebrow">Intresseanmälan</span>
+            <h2>@courseName</h2>
+            <p class="muted">Fyll i dina uppgifter så kontaktar vi dig med mer information om nästa kursstart.</p>
+
+            <form asp-controller="Register" asp-action="Create" asp-fragment="intresse" method="post" novalidate>
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-grid">
+                    <div class="field">
+                        <label asp-for="FirstName"></label>
+                        <input asp-for="FirstName" autocomplete="given-name" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="field">
+                        <label asp-for="LastName"></label>
+                        <input asp-for="LastName" autocomplete="family-name" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    <div class="field full">
+                        <label asp-for="Address"></label>
+                        <input asp-for="Address" autocomplete="street-address" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                    <div class="field">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" type="email" autocomplete="email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="field">
+                        <label asp-for="Phone"></label>
+                        <input asp-for="Phone" type="tel" autocomplete="tel" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                </div>
+                <input type="hidden" asp-for="Course" value="@course" />
+
+                <button type="submit" class="btn btn-primary submit">Skicka intresseanmälan</button>
+            </form>
+        </div>
+
+        <!--Kontakt-->
+        <aside class="kontakt">
+            <h3>Vid fler frågor – kontakta oss</h3>
+            <p class="muted">
+                Har du frågor kring @course.ToLowerInvariant()-utbildningen och dess innehåll? Hör av dig så hjälper vi dig.
+            </p>
+            <ul class="contact-list">
+                <li><span>E-post</span><a href="mailto:annanicolas@hotmail.com">annanicolas@hotmail.com</a></li>
+                <li><span>Telefon</span><a href="tel:+46722537728">+46 72-253 77 28</a></li>
+                <li><span>Adress</span>Stensötevägen 8, Göteborg</li>
+            </ul>
+        </aside>
+    </div>
+</section>

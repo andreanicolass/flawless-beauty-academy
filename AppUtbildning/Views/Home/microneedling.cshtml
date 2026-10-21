@@ -1,0 +1,82 @@
+﻿<!-- All kod är från presentationer och https://www.w3schools.com/html/default.asp-->
+@model AppUtbildning.Models.Register
+@{
+    ViewData["Title"] = "Microneedlingutbildning – Flawless Beauty Academy";
+    ViewData["Course"] = "Microneedling";
+    ViewData["CourseName"] = "Microneedling – Grundutbildning";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles {
+  <link rel="stylesheet" href="~/css/course.css" asp-append-version="true" />
+}
+
+<main class="course-page">
+  <section class="hero" style="--hero-img: url('/images/microneedling.jpg')">
+    <div class="container">
+      <div class="hero-content">
+        <span class="eyebrow">Grundutbildning</span>
+        <h1>Microneedling</h1>
+        <p>Bygg en trygg bas inom microneedling med teori och praktik under handledning.</p>
+        <div class="hero-actions">
+          <a href="#intresse" class="btn btn-light">Anmäl intresse</a>
+          <a href="#intro" class="btn btn-ghost-light">Läs mer</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Snabbfakta -->
+  <div class="container">
+    <div class="facts">
+      <div class="card fact"><span>Pris</span><strong>10 000 kr</strong></div>
+      <div class="card fact"><span>Upplägg</span><strong>eLearning + praktik</strong></div>
+      <div class="card fact"><span>Behörighet</span><strong>Ingen legitimation krävs</strong></div>
+      <div class="card fact"><span>Bevis</span><strong>Certifikat</strong></div>
+    </div>
+  </div>
+
+  <!-- Introduktion -->
+  <section class="section" id="intro">
+    <div class="container split">
+      <div>
+        <span class="eyebrow">Om utbildningen</span>
+        <h2>Din väg in i skönhetsbranschen</h2>
+      </div>
+      <div>
+        <p class="lead">
+          Flawless Beauty Academys Microneedling – Grundutbildning är en grundlig start för dig som vill
+          arbeta säkert och effektivt med microneedling. Kursen kombinerar tydlig teori med praktisk träning på riktiga modeller,
+          så att du kan gå från kunskap till trygg klinisk handling.
+        </p>
+        <ul class="checklist">
+          <li>Teori + praktik</li>
+          <li>Målgrupp: framtida skönhetsbehandlare</li>
+          <li>Certifikat efter genomförd utbildning</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kursupplägg -->
+  <section class="section section-soft" id="kursupplagg">
+    <div class="container">
+      <span class="eyebrow">Kursupplägg</span>
+      <h2>Två delar – teori och praktik</h2>
+      <p class="muted">Utbildningen är uppdelad i två delar för att effektivt integrera kunskap och färdighetsträning.</p>
+      <div class="parts">
+        <div class="card part">
+          <span class="num">01</span>
+          <h3>eLearning</h3>
+          <p>Interaktiv teori, webbinarium och bemannad chatt.</p>
+        </div>
+        <div class="card part">
+          <span class="num">02</span>
+          <h3>Praktik på plats</h3>
+          <p>Live-demo på modell och handledd träning i små grupper.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <partial name="_Intresseanmalan" model="Model" />
+</main>

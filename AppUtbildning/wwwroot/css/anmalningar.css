@@ -1,0 +1,138 @@
+/* Layout för admin-sidan med alla anmälningar. Färger, knappar och kort kommer från layout.css. */
+
+.admin-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px 64px;
+}
+
+/* Rubrik + knapp */
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+.admin-header h1 {
+    font-size: 2.6rem;
+    margin: 6px 0 4px;
+}
+.subtitle {
+    margin: 0;
+    color: #6b6b6b;
+}
+.back-link {
+    color: #6b6b6b;
+    text-decoration: none;
+    font-size: .9rem;
+}
+.back-link:hover { color: #000; }
+
+
+/* Filter och sök */
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+.filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.filter {
+    border: 1px solid #ddd;
+    background: #fff;
+    color: #444;
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: .9rem;
+    cursor: pointer;
+}
+.filter:hover { border-color: #999; }
+.filter.active {
+    background: #111;
+    border-color: #111;
+    color: #fff;
+}
+.search {
+    padding: 9px 14px;
+    border: 1px solid #ddd;
+    border-radius: 999px;
+    font-size: .95rem;
+    min-width: 240px;
+}
+.search:focus {
+    outline: none;
+    border-color: #111;
+}
+
+/* Kortet runt tabellen (.card finns i layout.css) */
+.card.empty {
+    padding: 40px;
+    text-align: center;
+    color: #6b6b6b;
+}
+.table-wrap {
+    overflow-x: auto; /* tabellen går att scrolla i sidled på mobil */
+}
+
+/* Tabellen */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .95rem;
+}
+.admin-table th {
+    text-align: left;
+    font-size: .75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #6b6b6b;
+    background: #fafafa;
+    padding: 12px 16px;
+    border-bottom: 1px solid #e6e6e6;
+}
+.admin-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: top;
+}
+.admin-table tbody tr:last-child td { border-bottom: none; }
+.admin-table tbody tr:hover { background: #fafafa; }
+
+.name { font-weight: 600; }
+.email {
+    display: block;
+    color: #1a1a1a;
+    text-decoration: none;
+}
+.email:hover { text-decoration: underline; }
+.muted {
+    color: #6b6b6b;
+    font-size: .9rem;
+}
+.nowrap { white-space: nowrap; }
+
+.badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: #f1f1f1;
+    border: 1px solid #e3e3e3;
+    font-size: .85rem;
+    white-space: nowrap;
+}
+
+.no-match {
+    padding: 24px;
+    margin: 0;
+    text-align: center;
+    color: #6b6b6b;
+}

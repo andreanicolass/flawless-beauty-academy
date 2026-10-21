@@ -1,0 +1,107 @@
+﻿<!-- All kod är från presentationer och https://www.w3schools.com/html/default.asp-->
+
+@{
+    ViewData["Title"] = "Om oss – Flawless Beauty Academy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles {
+  <link rel="stylesheet" href="~/css/omoss.css" asp-append-version="true" />
+}
+<main class="omoss-page">
+  <!-- Sidhuvud -->
+  <section class="page-intro section-soft">
+    <div class="container">
+      <span class="eyebrow">Om oss</span>
+      <h1>Trygghet, precision och resultat</h1>
+      <p class="lead muted">En klinik och akademi i Göteborg – grundad 2019.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container about-section">
+      <div class="about-text">
+        <span class="eyebrow">Kliniken</span>
+        <h2>Om Flawless Beauty</h2>
+        <p class="lead">
+          Flawless Beauty grundades 2019. Vi började i liten skala men har steg för steg växt till
+          en klinik och akademi där trygghet, precision och resultat står i centrum.
+        </p>
+        <p>
+          På vår klinik står du och ditt resultat i centrum. Du tas om hand av legitimerad
+          specialistpersonal som alltid sätter din trygghet och upplevelse främst. Vi arbetar
+          med modern teknisk utrustning och noggrant utvalda premiumprodukter från några av
+          estetikens ledande varumärken. För att säkerställa högsta kvalitet och patientsäkerhet
+          vidareutbildar vi oss kontinuerligt – allt för att kunna erbjuda dig de mest professionella
+          och aktuella behandlingarna.
+        </p>
+
+        <h3>Behandlingar vi erbjuder</h3>
+        <ul class="om-lista">
+          <li>Botulinumtoxin (Botox)</li>
+          <li>Fillers, hyalase och skinboosters</li>
+          <li>Prostrolane (fat burner)</li>
+          <li>HIFU</li>
+          <li>Tandsmycke &amp; tandblekning</li>
+          <li>Microneedling</li>
+          <li>Plasma pen (Plaxel Plus)</li>
+          <li>PRP (platelet-rich plasma)</li>
+        </ul>
+      </div>
+
+      <div class="about-image logo-image">
+        <img src="~/images/fbc.png" alt="Flawless Beauty clinic" asp-append-version="true" /> <!--mha chatgpt-->
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container about-section image-left">
+      <div class="about-image">
+        <img src="~/images/Anna.jpg" alt="Anna – grundare" asp-append-version="true" />
+      </div>
+
+      <div class="about-text">
+        <span class="eyebrow">Grundaren</span>
+        <h2>Ansiktet bakom företaget</h2>
+        <p class="lead">
+          2019 var året då Anna vågade följa sin dröm. Med en stark passion för estetik tog hon
+          steget och startade sitt eget företag – ett beslut som blev början på en resa fylld av
+          målmedvetenhet och framgång.
+        </p>
+        <p>
+          Redan året därpå slog hon igenom med sina kurser i microneedling, som snabbt blev en succé.
+          Men Anna nöjde sig inte där. Driven av en nyfikenhet och en vilja att alltid utvecklas, började
+          hon vidareutbilda sig.
+        </p>
+        <p>
+          När hon tog sin tandläkarexamen 2021 hade många kanske stannat upp. Men för Anna var det tvärtom –
+          en möjlighet att växa ännu mer. Hon tog sig an fillers och botox och breddade sin kompetens ytterligare.
+        </p>
+        <p>
+          Med passion, envishet och hårt arbete har Anna byggt upp sitt företag helt på egen hand. För henne är estetik mer
+          än bara ett yrke – det är en dröm som blivit verklighet, ett hantverk där varje behandling är skapad med omsorg,
+          precision och hjärta.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container vision">
+      <span class="eyebrow">Vår vision</span>
+      <blockquote>
+        Vi vill forma seriösa och kompetenta injektionsbehandlare genom att generöst dela med oss av kunskap,
+        erfarenhet och fingertoppskänsla.
+      </blockquote>
+      <p class="muted">
+        Hos oss får du självförtroende, verktyg och stöd för att lyckas i en bransch som växer – på ett tryggt
+        och professionellt sätt.
+      </p>
+      <div class="about-taggar">
+        <a asp-controller="Home" asp-action="Fillers" class="btn btn-outline">Fillers</a> <!--mha chatgpt-->
+        <a asp-controller="Home" asp-action="Botox" class="btn btn-outline">Botox</a>
+        <a asp-controller="Home" asp-action="Microneedling" class="btn btn-outline">Microneedling</a>
+      </div>
+    </div>
+  </section>
+</main>

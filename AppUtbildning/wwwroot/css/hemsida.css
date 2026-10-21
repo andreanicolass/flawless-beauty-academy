@@ -1,0 +1,90 @@
+﻿/* All kod är hämtad från antingen https://www.w3schools.com/css/default.asp ,
+genom att testa de olika funktionerna själv, och även chatgpt.com vid fel programmering.
+Gemensamma delar (knappar, hero, sektioner) finns i layout.css. */
+
+.hemsida-page .hero { min-height: 86vh; }
+
+.hemsida-page .section-head {
+    max-width: 640px;
+    margin-bottom: 48px;
+}
+
+/* Kurskort */
+.hemsida-page .course-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+.hemsida-page .course-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--text);
+    transition: transform .25s, box-shadow .25s;
+}
+.hemsida-page .course-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+}
+.hemsida-page .course-card img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+.hemsida-page .course-card-body { padding: 24px; }
+.hemsida-page .course-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+.hemsida-page .course-card .eyebrow { margin-bottom: 6px; }
+.hemsida-page .course-meta {
+    display: block;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: .85rem;
+    color: var(--muted);
+}
+
+/* Två kolumner: rubrik till vänster, text till höger */
+.hemsida-page .split {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 64px;
+}
+.hemsida-page .spaced { margin-top: 24px; }
+
+.hemsida-page .steps {
+    list-style: none;
+    padding: 0;
+    margin: 32px 0 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+.hemsida-page .steps li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+}
+.hemsida-page .steps strong {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--muted);
+}
+
+@media (max-width: 860px) {
+    .hemsida-page .course-cards,
+    .hemsida-page .split,
+    .hemsida-page .steps { grid-template-columns: 1fr; }
+    .hemsida-page .split { gap: 16px; }
+}
